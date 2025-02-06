@@ -3,9 +3,10 @@ import Header from './Header'
 import { checkValidData } from '../utils/validate'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import  {auth} from '../utils/firebase'
-import { useNavigate } from 'react-router-dom';
 import { addUser } from '../utils/userSlice';
 import { useDispatch } from 'react-redux';
+import { BACKGROUND_IMAGE } from '../utils/constants';
+
 
 const Login = () => {
     const [isSignInForm, setIsSignInForm] = useState(true);
@@ -13,7 +14,7 @@ const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
     const name = useRef(null);
-    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
     const toggleSignInForm  = () => {
@@ -44,7 +45,6 @@ const Login = () => {
                 // ...
                 const {uid, email, displayName} = auth.currentUser;
                 dispatch(addUser({uid: user.uid, email: user.email, displayName: name.current.value}))
-                navigate('/browse')
 
 
               }).catch((error) => {
@@ -67,8 +67,6 @@ const Login = () => {
                 .then((userCredential) => {
                   // Signed in 
                   const user = userCredential.user;
-                  console.log(user)
-                    navigate('/browse')
                   // ...
                 })
                 .catch((error) => {
@@ -85,7 +83,7 @@ const Login = () => {
         <Header />
 
         <div className='absolute'>   
-        <img src='https://assets.nflxext.com/ffe/siteui/vlv3/fb5cb900-0cb6-4728-beb5-579b9af98fdd/web/IN-en-20250127-TRIFECTA-perspective_cf66f5a3-d894-4185-9106-5f45502fc387_large.jpg' 
+        <img src= {BACKGROUND_IMAGE}
         alt='background image' />
         </div>
 
